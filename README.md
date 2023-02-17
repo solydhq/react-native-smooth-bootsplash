@@ -133,7 +133,7 @@ Options:
   --logo-width <width>             logo width at @1x (in dp - we recommend approximately ~100) (default: 100)
   --assets-path [path]             path to your static assets directory (useful to require the logo file in JS)
   --flavor <flavor>                [android only] flavor build variant (outputs in an android resource directory other than "main")
-  --dark-logo-path [path]          [optional] if specified, will be used for splashscreen that is shown when phone is in dark mode
+  --dark-logo [path]               [optional] if specified, will be used for splashscreen that is shown when phone is in dark mode
   --dark-background-color <color>  [optional] color used as launch screen background when phone is in dark mode (in hexadecimal format) (default: "#000"). Only used if --dark-logo-path is set!
   -h, --help                  output usage information
 ```
