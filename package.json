@@ -1,10 +1,10 @@
 {
-  "name": "react-native-bootsplash",
+  "name": "react-native-smooth-bootsplash",
   "version": "4.5.0",
   "license": "MIT",
   "description": "Display a bootsplash on your app starts. Hide it when you want.",
   "author": "Mathieu Acthernoene <zoontek@gmail.com>",
-  "homepage": "https://github.com/zoontek/react-native-bootsplash",
+  "homepage": "https://github.com/solydhq/react-native-smooth-bootsplash",
   "main": "dist/commonjs/index.js",
   "module": "dist/module/index.js",
   "types": "dist/typescript/index.d.ts",
@@ -21,10 +21,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/zoontek/react-native-bootsplash.git"
+    "url": "https://github.com/solydhq/react-native-smooth-bootsplash.git"
   },
   "keywords": [
     "react-native-bootsplash",
+    "react-native-smooth-bootsplash",
     "react-native",
     "boot-splash",
     "bootsplash",

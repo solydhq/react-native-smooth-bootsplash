@@ -2,7 +2,7 @@
   "Simulator Target Bundle": "com.zoontek.bootsplashexample",
   "aps": {
     "alert": {
-      "title": "react-native-bootsplash",
+      "title": "react-native-smooth-bootsplash",
       "body": "Push notification example",
       "sound": "default"
     }

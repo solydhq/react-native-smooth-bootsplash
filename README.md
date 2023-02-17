@@ -1,18 +1,18 @@
-# 🚀 react-native-bootsplash
+# 🚀 react-native-smooth-bootsplash
 
 Show a splash screen during app startup. Hide it when you are ready.<br>
-**For migration from the v3, check the [`MIGRATION.md` guide](https://github.com/zoontek/react-native-bootsplash/blob/master/MIGRATION.md).**
+**For migration from the v3, check the [`MIGRATION.md` guide](https://github.com/solydhq/react-native-smooth-bootsplash/blob/master/MIGRATION.md).**
 
-[![mit licence](https://img.shields.io/dub/l/vibe-d.svg?style=for-the-badge)](https://github.com/zoontek/react-native-bootsplash/blob/main/LICENSE)
-[![npm version](https://img.shields.io/npm/v/react-native-bootsplash?style=for-the-badge)](https://www.npmjs.org/package/react-native-bootsplash)
-[![npm downloads](https://img.shields.io/npm/dt/react-native-bootsplash.svg?label=downloads&style=for-the-badge)](https://www.npmjs.org/package/react-native-bootsplash)
+[![mit licence](https://img.shields.io/dub/l/vibe-d.svg?style=for-the-badge)](https://github.com/solydhq/react-native-smooth-bootsplash/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/react-native-smooth-bootsplash?style=for-the-badge)](https://www.npmjs.org/package/react-native-smooth-bootsplash)
+[![npm downloads](https://img.shields.io/npm/dt/react-native-smooth-bootsplash.svg?label=downloads&style=for-the-badge)](https://www.npmjs.org/package/react-native-smooth-bootsplash)
 <br />
 [![platform - android](https://img.shields.io/badge/platform-Android-3ddc84.svg?logo=android&style=for-the-badge)](https://www.android.com)
 [![platform - ios](https://img.shields.io/badge/platform-iOS-000.svg?logo=apple&style=for-the-badge)](https://developer.apple.com/ios)
 
 <p>
-  <img height="520" width="256" src="https://raw.githubusercontent.com/zoontek/react-native-bootsplash/HEAD/docs/ios_demo.gif?raw=true" alt="iOS demo"></img>
-  <img height="500" width="259" src="https://raw.githubusercontent.com/zoontek/react-native-bootsplash/HEAD/docs/android_demo.gif?raw=true" alt="android demo"></img>
+  <img height="520" width="256" src="https://raw.githubusercontent.com/solydhq/react-native-smooth-bootsplash/HEAD/docs/ios_demo.gif?raw=true" alt="iOS demo"></img>
+  <img height="500" width="259" src="https://raw.githubusercontent.com/solydhq/react-native-smooth-bootsplash/HEAD/docs/android_demo.gif?raw=true" alt="android demo"></img>
 </p>
 
 ## Funding
@@ -35,9 +35,9 @@ If your company uses it in a production app, consider sponsoring this project �
 ## Installation
 
 ```bash
-$ npm install --save react-native-bootsplash
+$ npm install --save-dev react-native-smooth-bootsplash
 # --- or ---
-$ yarn add react-native-bootsplash
+$ yarn add -D react-native-smooth-bootsplash
 ```
 
 _⚠️  Don't forget going into the `ios` directory to execute a `pod install`._
@@ -56,7 +56,7 @@ Add this line to your `ios/Podfile` file, then run `pod install`.
 ```bash
 target 'YourAwesomeProject' do
   # …
-  pod 'RNBootSplash', :path => '../node_modules/react-native-bootsplash'
+  pod 'RNBootSplash', :path => '../node_modules/react-native-smooth-bootsplash'
 end
 ```
 
@@ -65,8 +65,8 @@ end
 1. Add the following lines to `android/settings.gradle`:
 
 ```gradle
-include ':react-native-bootsplash'
-project(':react-native-bootsplash').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-bootsplash/android')
+include ':react-native-smooth-bootsplash'
+project(':react-native-smooth-bootsplash').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-smooth-bootsplash/android')
 ```
 
 2. Add the implementation line to the dependencies in `android/app/build.gradle`:
@@ -74,7 +74,7 @@ project(':react-native-bootsplash').projectDir = new File(rootProject.projectDir
 ```gradle
 dependencies {
   // ...
-  implementation project(':react-native-bootsplash')
+  implementation project(':react-native-smooth-bootsplash')
 }
 ```
 
@@ -104,7 +104,7 @@ public class MainApplication extends Application implements ReactApplication {
 
 ## Setup
 
-ℹ️ For `react-native` < `0.71` setup, follow the [`v4.4.0 README.md`](https://github.com/zoontek/react-native-bootsplash/blob/4.4.0/README.md).
+ℹ️ For `react-native` < `0.71` setup, follow the [`v4.4.0 README.md`](https://github.com/zoontek/react-native-smooth-bootsplash/blob/4.4.0/README.md).
 
 ### Assets generation
 
@@ -141,7 +141,7 @@ yarn react-native generate-bootsplash assets/bootsplash_logo_original.png \
   --flavor=main
 ```
 
-![](https://raw.githubusercontent.com/zoontek/react-native-bootsplash/master/docs/cli_tool.png?raw=true)
+![](https://raw.githubusercontent.com/zoontek/react-native-smooth-bootsplash/master/docs/cli_tool.png?raw=true)
 
 This tool relies on the naming conventions that are used in the `/example` project and will therefore create the following files:
 
@@ -198,7 +198,7 @@ Set the `BootSplash.storyboard` as launch screen file:
 
 | Drag and drop the file                                                                                  | Create folder reference                                                                                 | Set as Launch Screen File                                                                               |
 | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| ![](https://raw.githubusercontent.com/zoontek/react-native-bootsplash/master/docs/xcode-1.png?raw=true) | ![](https://raw.githubusercontent.com/zoontek/react-native-bootsplash/master/docs/xcode-2.png?raw=true) | ![](https://raw.githubusercontent.com/zoontek/react-native-bootsplash/master/docs/xcode-3.png?raw=true) |
+| ![](https://raw.githubusercontent.com/zoontek/react-native-smooth-bootsplash/master/docs/xcode-1.png?raw=true) | ![](https://raw.githubusercontent.com/zoontek/react-native-smooth-bootsplash/master/docs/xcode-2.png?raw=true) | ![](https://raw.githubusercontent.com/zoontek/react-native-smooth-bootsplash/master/docs/xcode-3.png?raw=true) |
 
 ### Android
 
@@ -296,7 +296,7 @@ Note: Only durations above 220ms are visually noticeable. Smaller values will be
 #### Usage
 
 ```js
-import RNBootSplash from "react-native-bootsplash";
+import RNBootSplash from "react-native-smooth-bootsplash";
 
 RNBootSplash.hide(); // immediate
 RNBootSplash.hide({ fade: true }); // fade with 220ms default duration
@@ -315,7 +315,7 @@ type getVisibilityStatus = () => Promise<VisibilityStatus>;
 #### Usage
 
 ```js
-import RNBootSplash from "react-native-bootsplash";
+import RNBootSplash from "react-native-smooth-bootsplash";
 
 RNBootSplash.getVisibilityStatus().then((status) => console.log(status));
 ```
@@ -325,7 +325,7 @@ RNBootSplash.getVisibilityStatus().then((status) => console.log(status));
 ```js
 import React, { useEffect } from "react";
 import { Text } from "react-native";
-import RNBootSplash from "react-native-bootsplash";
+import RNBootSplash from "react-native-smooth-bootsplash";
 
 function App() {
   useEffect(() => {
@@ -352,7 +352,7 @@ If you are using React Navigation, you can hide the splash screen once the navig
 ```js
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import RNBootSplash from "react-native-bootsplash";
+import RNBootSplash from "react-native-smooth-bootsplash";
 
 function App() {
   return (
@@ -374,7 +374,7 @@ Testing code which uses this library requires some setup since we need to mock t
 To add the mocks, create a file _jest/setup.js_ (or any other file name) containing the following code:
 
 ```js
-jest.mock("react-native-bootsplash", () => {
+jest.mock("react-native-smooth-bootsplash", () => {
   return {
     hide: jest.fn().mockResolvedValueOnce(),
     getVisibilityStatus: jest.fn().mockResolvedValue("hidden"),
@@ -392,5 +392,5 @@ After that, we need to add the setup file in the jest config. You can add it und
 
 ## 🕵️‍♂️ Comparison with [react-native-splash-screen](https://github.com/crazycodeboy/react-native-splash-screen)
 
-- If `react-native-splash-screen` encourages you to display an image over your application, `react-native-bootsplash` way-to-go is to design your launch screen using platforms tools.
+- If `react-native-splash-screen` encourages you to display an image over your application, `react-native-smooth-bootsplash` way-to-go is to design your launch screen using platforms tools.
 - Hiding the launch screen is configurable: fade it out or hide it without any animation.

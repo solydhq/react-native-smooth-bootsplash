@@ -1,12 +1,12 @@
 type config = {fade: bool}
 
-@module("react-native-bootsplash") @scope("default")
+@module("react-native-smooth-bootsplash") @scope("default")
 external hide: config => Js.Promise.t<unit> = "hide"
 
 // Note that this binding requires BuckleScript >= 8.2.0
 type visibilityStatus = [#visible | #hidden | #transitioning]
 
-@module("react-native-bootsplash") @scope("default")
+@module("react-native-smooth-bootsplash") @scope("default")
 external getVisibilityStatus: unit => Js.Promise.t<visibilityStatus> = "getVisibilityStatus"
 /*
 ## Usage

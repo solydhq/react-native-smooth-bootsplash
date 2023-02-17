@@ -377,6 +377,6 @@ export const generate = async ({
 `);
 
   log.text(
-    `✅  Done! Thanks for using ${pc.underline("react-native-bootsplash")}.`,
+    `✅  Done! Thanks for using ${pc.underline("react-native-smooth-bootsplash")}.`,
   );
 };

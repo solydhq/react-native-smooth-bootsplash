@@ -491,7 +491,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - RNBootSplash (from `../node_modules/react-native-bootsplash`)
+  - RNBootSplash (from `../node_modules/react-native-smooth-bootsplash`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -585,7 +585,7 @@ EXTERNAL SOURCES:
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
   RNBootSplash:
-    :path: "../node_modules/react-native-bootsplash"
+    :path: "../node_modules/react-native-smooth-bootsplash"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
   Yoga:
@@ -640,7 +640,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 0af3babdeee1b2d052811a2f86977d1e1c81ebd1
   React-runtimeexecutor: 4bf9a9086d27f74065fce1dddac274aa95216952
   ReactCommon: f697c0ac52e999aa818e43e2b6f277787c735e2d
-  RNBootSplash: 364ec0f6a61d96bce40e8630d80d949c214a5749
+  RNBootSplash: 04d84b85243a07dca2e56927a311a1a1fc5f8132
   RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: 5b0304b3dbef2b52e078052138e23a19c7dacaef
