@@ -8,8 +8,8 @@ import {
   View,
 } from "react-native";
 import { SystemBars } from "react-native-bars";
-import * as BootSplash from "react-native-smooth-bootsplash";
 import { requestNotifications } from "react-native-permissions";
+import * as BootSplash from "react-native-smooth-bootsplash";
 
 const bootSplashLogo = require("./assets/bootsplash_logo.png");
 

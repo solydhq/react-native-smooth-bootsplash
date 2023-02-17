@@ -198,8 +198,8 @@ Edit the `ios/YourProjectName/AppDelegate.mm` file:
 
 Set the `BootSplash.storyboard` as launch screen file:
 
-| Drag and drop the file                                                                                  | Create folder reference                                                                                 | Set as Launch Screen File                                                                               |
-| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| Drag and drop the file                                                                                         | Create folder reference                                                                                        | Set as Launch Screen File                                                                                      |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | ![](https://raw.githubusercontent.com/zoontek/react-native-smooth-bootsplash/master/docs/xcode-1.png?raw=true) | ![](https://raw.githubusercontent.com/zoontek/react-native-smooth-bootsplash/master/docs/xcode-2.png?raw=true) | ![](https://raw.githubusercontent.com/zoontek/react-native-smooth-bootsplash/master/docs/xcode-3.png?raw=true) |
 
 ### Android
@@ -242,6 +242,7 @@ _⚠️  Don't forget going into the `android` directory to execute a `./gradl
 ```
 
 If you want to have different splashscreen in Dark Mode, also create/edit the `android/app/src/main/res/values-night/styles.xml`:
+
 ```xml
 <resources>
   <!-- BootTheme should inherit from Theme.SplashScreen -->
