@@ -143,6 +143,7 @@ Options:
 ```bash
 yarn react-native generate-bootsplash assets/bootsplash_logo_original.png \
   --background-color=F5FCFF \
+  --dark-logo=assets/bootsplash_logo_dark.png \
   --logo-width=100 \
   --assets-path=assets \
   --flavor=main
@@ -159,18 +160,36 @@ assets/bootsplash_logo@1,5x.png
 assets/bootsplash_logo@2x.png
 assets/bootsplash_logo@3x.png
 assets/bootsplash_logo@4x.png
+# if dark logo is specified
+assets/bootsplash_logo_dark.png
+assets/bootsplash_logo_dark@1,5x.png
+assets/bootsplash_logo_dark@2x.png
+assets/bootsplash_logo_dark@3x.png
+assets/bootsplash_logo_dark@4x.png
 
-android/app/src/main/res/values/colors.xml (creation and edition)
+android/app/src/main/res/values/colors.xml (creation and addition)
+android/app/src/main/res/values-night/colors.xml
 android/app/src/main/res/mipmap-hdpi/bootsplash_logo.png
 android/app/src/main/res/mipmap-mdpi/bootsplash_logo.png
 android/app/src/main/res/mipmap-xhdpi/bootsplash_logo.png
 android/app/src/main/res/mipmap-xxhdpi/bootsplash_logo.png
 android/app/src/main/res/mipmap-xxxhdpi/bootsplash_logo.png
+# if dark logo is specified
+android/app/src/main/res/mipmap-hdpi/bootsplash_logo_dark.png
+android/app/src/main/res/mipmap-mdpi/bootsplash_logo_dark.png
+android/app/src/main/res/mipmap-xhdpi/bootsplash_logo_dark.png
+android/app/src/main/res/mipmap-xxhdpi/bootsplash_logo_dark.png
+android/app/src/main/res/mipmap-xxxhdpi/bootsplash_logo_dark.png
+
 
 ios/YourProjectName/BootSplash.storyboard
 ios/YourProjectName/Images.xcassets/BootSplashLogo.imageset/bootsplash_logo.png
 ios/YourProjectName/Images.xcassets/BootSplashLogo.imageset/bootsplash_logo@2x.png
 ios/YourProjectName/Images.xcassets/BootSplashLogo.imageset/bootsplash_logo@3x.png
+# if dark logo is specified
+ios/YourProjectName/Images.xcassets/BootSplashLogo.imageset/bootsplash_logo_dark.png
+ios/YourProjectName/Images.xcassets/BootSplashLogo.imageset/bootsplash_logo_dark@2x.png
+ios/YourProjectName/Images.xcassets/BootSplashLogo.imageset/bootsplash_logo_dark@3x.png
 ```
 
 ### iOS
