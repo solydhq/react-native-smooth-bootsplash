@@ -3,7 +3,7 @@ import path from "path";
 import pc from "picocolors";
 import sharp from "sharp";
 
-const logoFileName = "bootsplash_logo";
+const lightLogoFileName = "bootsplash_logo";
 const darkLogoFileName = "bootsplash_logo_dark";
 const xcassetName = "BootSplashLogo";
 const colorAssetName = "SplashColor";
@@ -25,17 +25,17 @@ const getLogoContentsJson = (includeDarkLogo: boolean) => `{
   "images": [
     {
       "idiom": "universal",
-      "filename": "${logoFileName}.png",
+      "filename": "${lightLogoFileName}.png",
       "scale": "1x"
     },
     {
       "idiom": "universal",
-      "filename": "${logoFileName}@2x.png",
+      "filename": "${lightLogoFileName}@2x.png",
       "scale": "2x"
     },
     {
       "idiom": "universal",
-      "filename": "${logoFileName}@3x.png",
+      "filename": "${lightLogoFileName}@3x.png",
       "scale": "3x"
     }${includeDarkLogo ? DarkImagesContentsJson : ""}
   ],
@@ -328,6 +328,7 @@ const generateSingle = async ({
     process.exit(1);
   }
 
+  const logoFileName = theme === "light" ? lightLogoFileName : darkLogoFileName;
   const image = sharp(logoPath);
   const backgroundColorHex = toFullHexadecimal(backgroundColor);
   const { format } = await image.metadata();
