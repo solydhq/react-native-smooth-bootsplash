@@ -1,5 +1,10 @@
 # 🚀 react-native-smooth-bootsplash
 
+## Additional features to [react-native-bootsplash](https://github.com/zoontek/react-native-bootsplash):
+- Dark Mode Support
+
+___
+
 Show a splash screen during app startup. Hide it when you are ready.<br>
 **For migration from the v3, check the [`MIGRATION.md` guide](https://github.com/solydhq/react-native-smooth-bootsplash/blob/master/MIGRATION.md).**
 
