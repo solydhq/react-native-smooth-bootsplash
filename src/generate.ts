@@ -4,11 +4,24 @@ import pc from "picocolors";
 import sharp from "sharp";
 
 const logoFileName = "bootsplash_logo";
+const darkLogoFileName = "bootsplash_logo_dark";
 const xcassetName = "BootSplashLogo";
+const colorAssetName = "SplashColor";
+
 const androidColorName = "bootsplash_background";
 const androidColorRegex = /<color name="bootsplash_background">#\w+<\/color>/g;
 
-const ContentsJson = `{
+const colorToRGB = (hex: string) => {
+  const fullHexColor = toFullHexadecimal(hex);
+
+  return {
+    r: (parseInt(fullHexColor[1] + fullHexColor[2], 16) / 255).toPrecision(15),
+    g: (parseInt(fullHexColor[3] + fullHexColor[4], 16) / 255).toPrecision(15),
+    b: (parseInt(fullHexColor[5] + fullHexColor[6], 16) / 255).toPrecision(15),
+  };
+};
+
+const getLogoContentsJson = (includeDarkLogo: boolean) => `{
   "images": [
     {
       "idiom": "universal",
@@ -24,7 +37,7 @@ const ContentsJson = `{
       "idiom": "universal",
       "filename": "${logoFileName}@3x.png",
       "scale": "3x"
-    }
+    }${includeDarkLogo ? DarkImagesContentsJson : ""}
   ],
   "info": {
     "version": 1,
@@ -33,25 +46,104 @@ const ContentsJson = `{
 }
 `;
 
+const DarkImagesContentsJson = `,
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "idiom": "universal",
+      "filename": "${darkLogoFileName}.png",
+      "scale": "1x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "idiom": "universal",
+      "filename": "${darkLogoFileName}@2x.png",
+      "scale": "2x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "idiom": "universal",
+      "filename": "${darkLogoFileName}@3x.png",
+      "scale": "3x"
+    }
+`;
+
+const getDarkColorsContentsJson = (darkColor: string) => {
+  const rgb = colorToRGB(darkColor);
+  return `,
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "color" : {
+        "color-space" : "srgb",
+        "components" : {
+          "alpha" : "1.000",
+          "blue" : "${rgb.b}",
+          "green" : "${rgb.g}",
+          "red" : "${rgb.r}"
+        }
+      },
+      "idiom" : "universal"
+    }
+`;
+};
+
+const getColorsContentsJson = (lightColor: string, darkColor?: string) => {
+  const rgb = colorToRGB(lightColor);
+  return `{
+  "colors" : [
+    {
+      "color" : {
+        "color-space" : "srgb",
+        "components" : {
+          "alpha" : "1.000",
+          "blue" : "${rgb.b}",
+          "green" : "${rgb.g}",
+          "red" : "${rgb.r}"
+        }
+      },
+      "idiom" : "universal"
+    }${darkColor ? getDarkColorsContentsJson(darkColor) : ""}
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}`;
+};
+
 const getStoryboard = ({
   height,
   width,
-  backgroundColor: hex,
 }: {
   height: number;
   width: number;
-  backgroundColor: string;
 }) => {
-  const r = (parseInt(hex[1] + hex[2], 16) / 255).toPrecision(15);
-  const g = (parseInt(hex[3] + hex[4], 16) / 255).toPrecision(15);
-  const b = (parseInt(hex[5] + hex[6], 16) / 255).toPrecision(15);
-
   return `<?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17147" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17120"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -74,7 +166,7 @@ const getStoryboard = ({
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
-                        <color key="backgroundColor" red="${r}" green="${g}" blue="${b}" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="${colorAssetName}"/>
                         <accessibility key="accessibilityConfiguration">
                             <accessibilityTraits key="traits" notEnabled="YES"/>
                         </accessibility>
@@ -91,6 +183,7 @@ const getStoryboard = ({
     </scenes>
     <resources>
         <image name="${xcassetName}" width="${width}" height="${height}"/>
+        <namedColor name="${colorAssetName}" />
     </resources>
 </document>
 `;
@@ -120,10 +213,102 @@ export const generate = async ({
 
   workingPath,
   logoPath,
+  darkLogoPath,
+  backgroundColor,
+  darkBackgroundColor,
+  logoWidth,
+  flavor,
+  assetsPath,
+}: {
+  android: {
+    sourceDir: string;
+    appName: string;
+  } | null;
+  ios: {
+    projectPath: string;
+  } | null;
+
+  workingPath: string;
+  logoPath: string;
+  darkLogoPath?: string;
+  assetsPath?: string;
+
+  backgroundColor: string;
+  darkBackgroundColor?: string;
+  flavor: string;
+  logoWidth: number;
+}) => {
+  if (ios) {
+    ios.projectPath = ios.projectPath.replace(/.xcodeproj$/, "");
+  }
+
+  await generateSingle({
+    android,
+    ios,
+
+    workingPath,
+    logoPath,
+    backgroundColor,
+    logoWidth,
+    flavor,
+    assetsPath,
+    theme: "light",
+  });
+
+  if (darkLogoPath && darkBackgroundColor) {
+    await generateSingle({
+      android,
+      ios,
+
+      workingPath,
+      logoPath: darkLogoPath,
+      backgroundColor: darkBackgroundColor,
+      logoWidth,
+      flavor,
+      assetsPath,
+      theme: "dark",
+    });
+  }
+
+  if (ios) {
+    createIosAssets({
+      projectPath: ios.projectPath,
+      workingPath,
+      includeDarkLogo: !!darkLogoPath,
+      lightBackgroundColor: backgroundColor,
+      darkBackgroundColor: darkBackgroundColor,
+    });
+  }
+
+  log.text(`
+ ${pc.blue("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓")}
+ ${pc.blue("┃")}  💖  ${pc.bold(
+    "Love this library? Consider sponsoring!",
+  )}  ${pc.blue("┃")}
+ ${pc.blue("┃")}  ${pc.underline(
+    "https://github.com/sponsors/zoontek",
+  )}          ${pc.blue("┃")}
+ ${pc.blue("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛")}
+`);
+
+  log.text(
+    `✅  Done! Thanks for using ${pc.underline(
+      "react-native-smooth-bootsplash",
+    )}.`,
+  );
+};
+
+const generateSingle = async ({
+  android,
+  ios,
+
+  workingPath,
+  logoPath,
   backgroundColor,
   logoWidth,
   flavor,
   assetsPath,
+  theme,
 }: {
   android: {
     sourceDir: string;
@@ -140,6 +325,7 @@ export const generate = async ({
   backgroundColor: string;
   flavor: string;
   logoWidth: number;
+  theme: "light" | "dark";
 }) => {
   if (!isValidHexadecimal(backgroundColor)) {
     log.error("--background-color value is not a valid hexadecimal color.");
@@ -220,7 +406,10 @@ export const generate = async ({
       : path.resolve(android.sourceDir); // @react-native-community/cli 2.x & 3.x support
 
     const resPath = path.resolve(appPath, "src", flavor, "res");
-    const valuesPath = path.resolve(resPath, "values");
+    const valuesPath = path.resolve(
+      resPath,
+      theme === "light" ? "values" : "values-night",
+    );
 
     fs.ensureDirSync(valuesPath);
 
@@ -317,7 +506,6 @@ export const generate = async ({
         getStoryboard({
           height: logoHeight,
           width: logoWidth,
-          backgroundColor: backgroundColorHex,
         }),
         "utf-8",
       );
@@ -332,12 +520,6 @@ export const generate = async ({
     if (fs.existsSync(imagesPath)) {
       const imageSetPath = path.resolve(imagesPath, xcassetName + ".imageset");
       fs.ensureDirSync(imageSetPath);
-
-      fs.writeFileSync(
-        path.resolve(imageSetPath, "Contents.json"),
-        ContentsJson,
-        "utf-8",
-      );
 
       await Promise.all(
         [
@@ -364,19 +546,55 @@ export const generate = async ({
       );
     }
   }
+};
 
-  log.text(`
- ${pc.blue("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓")}
- ${pc.blue("┃")}  💖  ${pc.bold(
-    "Love this library? Consider sponsoring!",
-  )}  ${pc.blue("┃")}
- ${pc.blue("┃")}  ${pc.underline(
-    "https://github.com/sponsors/zoontek",
-  )}          ${pc.blue("┃")}
- ${pc.blue("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛")}
-`);
+const createIosAssets = ({
+  projectPath,
+  workingPath,
 
-  log.text(
-    `✅  Done! Thanks for using ${pc.underline("react-native-smooth-bootsplash")}.`,
-  );
+  includeDarkLogo,
+  lightBackgroundColor,
+  darkBackgroundColor,
+}: {
+  projectPath: string;
+  workingPath: string;
+
+  includeDarkLogo: boolean;
+  lightBackgroundColor: string;
+  darkBackgroundColor?: string;
+}) => {
+  const logWrite = (
+    emoji: string,
+    filePath: string,
+    dimensions?: { width: number; height: number },
+  ) =>
+    log.text(
+      `${emoji}  ${path.relative(workingPath, filePath)}` +
+        (dimensions != null
+          ? ` (${dimensions.width}x${dimensions.height})`
+          : ""),
+    );
+
+  const imagesPath = path.resolve(projectPath, "Images.xcassets");
+  if (fs.existsSync(imagesPath)) {
+    const imageSetPath = path.resolve(imagesPath, xcassetName + ".imageset");
+    fs.ensureDirSync(imageSetPath);
+
+    fs.writeFileSync(
+      path.resolve(imageSetPath, "Contents.json"),
+      getLogoContentsJson(includeDarkLogo),
+      "utf-8",
+    );
+    logWrite("✨", path.resolve(imageSetPath, "Contents.json"));
+
+    const colorSetPath = path.resolve(imagesPath, colorAssetName + ".colorset");
+    fs.ensureDirSync(colorSetPath);
+
+    fs.writeFileSync(
+      path.resolve(colorSetPath, "Contents.json"),
+      getColorsContentsJson(lightBackgroundColor, darkBackgroundColor),
+      "utf-8",
+    );
+    logWrite("✨", path.resolve(colorSetPath, "Contents.json"));
+  }
 };
