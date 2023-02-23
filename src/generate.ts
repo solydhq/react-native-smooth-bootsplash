@@ -345,16 +345,26 @@ const generateSingle = async ({
     .then((buffer) => sharp(buffer).metadata())
     .then(({ height = 0 }) => height);
 
+  const shouldSkipAndroid = logoWidth > 288 || logoHeight > 288;
+
+  const logAbove288 = (dimension: "height" | "width") => {
+    const message = `⚠️   Logo ${dimension} exceed 288dp. As it will be cropped by Android, we skip generation for this platform.`;
+    log.warn(message);
+  };
+
+  const logAbove192 = (dimension: "height" | "width") => {
+    const message = `⚠️   Logo ${dimension} exceed 192dp. It might be cropped by Android.`;
+    log.warn(message);
+  };
+
   if (logoWidth > 288) {
-    log.error("Logo width must not exceed 288dp (Android will crop it).");
-    process.exit(1);
+    logAbove288("width");
   } else if (logoHeight > 288) {
-    log.error("Logo height must not exceed 288dp (Android will crop it).");
-    process.exit(1);
+    logAbove288("height");
   } else if (logoWidth > 192) {
-    log.warn("⚠️   Logo width exceed 192dp. It might be cropped on Android.");
+    logAbove192("width");
   } else if (logoHeight > 192) {
-    log.warn("⚠️   Logo height exceed 192dp. It might be cropped on Android.");
+    logAbove192("height");
   }
 
   const logWrite = (
@@ -395,7 +405,7 @@ const generateSingle = async ({
     );
   }
 
-  if (android) {
+  if (android && !shouldSkipAndroid) {
     log.text(`\n    ${pc.underline("Android")}`);
 
     const appPath = android.appName
